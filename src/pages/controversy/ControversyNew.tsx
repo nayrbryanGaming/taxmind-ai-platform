@@ -12,7 +12,7 @@ import { ArrowLeft, Plus } from 'lucide-react';
 export default function ControversyNew() {
   const navigate = useNavigate();
   const addNotice = useControversyStore(s => s.addNotice);
-  const clients = useClientStore(s => s.getActiveClients());
+  const clients = Object.values(useClientStore(s => s.clients)).filter(c => c.status === 'ACTIVE');
   const [clientId, setClientId] = useState('');
   const [form, setForm] = useState({
     noticeType: 'CP2000' as const, taxYear: 2024, amountInDispute: 0,

@@ -13,7 +13,7 @@ import { ArrowLeft, FilePlus } from 'lucide-react';
 export default function ReturnNew() {
   const navigate = useNavigate();
   const addReturn = useReturnStore(s => s.addReturn);
-  const clients = useClientStore(s => s.getActiveClients());
+  const clients = Object.values(useClientStore(s => s.clients)).filter(c => c.status === 'ACTIVE');
   const [clientId, setClientId] = useState('');
   const [form, setForm] = useState({ taxYear: 2024, form: '1040', status: 'NOT_STARTED' as ReturnStatus, originalDueDate: '2025-04-15' });
 

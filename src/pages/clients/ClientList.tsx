@@ -19,7 +19,7 @@ const complexityColors: Record<number, string> = {
 
 export default function ClientList() {
   const navigate = useNavigate();
-  const clients = useClientStore(s => s.getActiveClients());
+  const clients = Object.values(useClientStore(s => s.clients)).filter(c => c.status === 'ACTIVE');
   const [query, setQuery] = useState('');
   const filtered = clients.filter(c =>
     !query || c.legalName.toLowerCase().includes(query.toLowerCase()) ||

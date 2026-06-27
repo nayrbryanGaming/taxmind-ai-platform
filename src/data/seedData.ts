@@ -312,19 +312,22 @@ export function seedAllData() {
 
   // Seed clients
   const clientStore = useClientStore.getState();
-  SEED_CLIENTS.forEach(c => clientStore.addClient(c));
-  const clients = Object.values(clientStore.clients);
+  const addedClientIds: string[] = [];
+  SEED_CLIENTS.forEach(c => {
+    const id = clientStore.addClient(c);
+    addedClientIds.push(id);
+  });
 
   // Seed returns
   const returnStore = useReturnStore.getState();
   SEED_RETURNS.forEach((r, i) => {
-    returnStore.addReturn({ ...r, clientId: clients[i % clients.length].id });
+    returnStore.addReturn({ ...r, clientId: addedClientIds[i % addedClientIds.length] });
   });
 
   // Seed research memos
   const researchStore = useResearchStore.getState();
   SEED_RESEARCH_MEMOS.forEach((m, i) => {
-    researchStore.addMemo({ ...m, clientId: clients[i % clients.length].id });
+    researchStore.addMemo({ ...m, clientId: addedClientIds[i % addedClientIds.length] });
   });
 
   try {

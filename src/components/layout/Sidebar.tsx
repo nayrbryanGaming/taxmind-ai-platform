@@ -68,8 +68,8 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const location = useLocation();
   const { sidebarCollapsed, toggleSidebar } = useUIStore();
-  const activeClients = useClientStore(s => s.getActiveClients());
-  const openReturns = useReturnStore(s => s.getByStatus('IN_PROGRESS'));
+  const activeClients = Object.values(useClientStore(s => s.clients)).filter(c => c.status === 'ACTIVE');
+  const openReturns = Object.values(useReturnStore(s => s.returns)).filter(r => r.status === 'IN_PROGRESS');
 
   return (
     <aside

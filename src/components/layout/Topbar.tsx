@@ -6,8 +6,8 @@ import { useReturnStore } from '@/stores/useReturnStore';
 
 export default function Topbar() {
   const navigate = useNavigate();
-  const overdue = useReturnStore(s => s.getOverdue());
-  const inProgress = useReturnStore(s => s.getByStatus('IN_PROGRESS'));
+  const overdue = Object.values(useReturnStore(s => s.returns)).filter(r => r.status !== 'FILED' && r.originalDueDate < new Date().toISOString().split('T')[0]);
+  const inProgress = Object.values(useReturnStore(s => s.returns)).filter(r => r.status === 'IN_PROGRESS');
 
   const ticker = [
     'Q4 Est. Tax Due: Jan 15  |  W-2/1099 Due: Jan 31  |  Corps (1120): Mar 15',

@@ -7,7 +7,7 @@ import { ArrowLeft, FileText } from 'lucide-react';
 export default function ClientReturns() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const returns = useReturnStore(s => s.getByClient(id ?? ''));
+  const returns = Object.values(useReturnStore(s => s.returns)).filter(r => r.clientId === (id ?? ''));
 
   return (
     <div className="max-w-[1000px] mx-auto space-y-5">

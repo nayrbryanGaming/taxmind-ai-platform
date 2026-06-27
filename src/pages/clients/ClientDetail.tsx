@@ -13,7 +13,7 @@ export default function ClientDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const client = useClientStore(s => s.clients[id ?? '']);
-  const returns = useReturnStore(s => s.getByClient(id ?? ''));
+  const returns = Object.values(useReturnStore(s => s.returns)).filter(r => r.clientId === (id ?? ''));
 
   if (!client) return <div className="text-center py-20 text-tm-text-muted">Client not found</div>;
 

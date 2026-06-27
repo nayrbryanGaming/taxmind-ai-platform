@@ -5,9 +5,9 @@ import { fmtTax } from '@/lib/tax/calculations';
 import { BarChart3, Users, FileText, DollarSign, Clock } from 'lucide-react';
 
 export default function FirmAnalytics() {
-  const clients = useClientStore(s => s.getActiveClients());
+  const clients = Object.values(useClientStore(s => s.clients)).filter(c => c.status === 'ACTIVE');
   const returns = Object.values(useReturnStore(s => s.returns));
-  const inProgress = useReturnStore(s => s.getByStatus('IN_PROGRESS'));
+  const inProgress = Object.values(useReturnStore(s => s.returns)).filter(r => r.status === 'IN_PROGRESS');
 
   const totalBilled = clients.reduce((s, c) => s + (c.ytdBilledAmount ?? 0), 0);
   const totalHours = clients.reduce((s, c) => s + (c.ytdBilledHours ?? 0), 0);

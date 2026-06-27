@@ -14,14 +14,20 @@ import {
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const clients = useClientStore(s => s.getActiveClients());
-  const returns = useReturnStore(s => Object.values(s.returns));
-  const overdue = useReturnStore(s => s.getOverdue());
-  const inProgress = useReturnStore(s => s.getByStatus('IN_PROGRESS'));
-  const underReview = useReturnStore(s => s.getByStatus('REVIEW'));
-  const notStarted = useReturnStore(s => s.getByStatus('NOT_STARTED'));
-  const totalTaxDue = useReturnStore(s => s.getTotalTaxDuePortfolio());
-  const memos = useResearchStore(s => Object.values(s.memos).sort((a, b) => b.createdAt - a.createdAt).slice(0, 5));
+  const clientMap = useClientStore(s => s.clients);
+  const clients = Object.values(clientMap).filter(c => c.status === 'ACTIVE');
+  
+  const returnMap = useReturnStore(s => s.returns);
+  const returns = Object.values(returnMap);
+  const overdue = returns.filter(r => r.status !== 'FILED' && r.originalDueDate < new Date().toISOString().split('T')[0]);
+  const inProgress = returns.filter(r => r.status === 'IN_PROGRESS');
+  const underReview = returns.filter(r => r.status === 'REVIEW');
+  const notStarted = returns.filter(r => r.status === 'NOT_STARTED');
+  
+  const totalTaxDue = returns.reduce((sum, r) => sum + ((r.taxDueOrRefund ?? 0) > 0 ? (r.taxDueOrRefund ?? 0) : 0), 0);
+  
+  const memoMap = useResearchStore(s => s.memos);
+  const memos = Object.values(memoMap).sort((a, b) => b.createdAt - a.createdAt).slice(0, 5);
 
   const today = new Date().toISOString().split('T')[0];
   const upcomingDeadlines = TAX_DEADLINES_2025
