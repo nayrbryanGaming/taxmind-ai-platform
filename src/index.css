@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 35% 3%;
+    --foreground: 230 45% 94%;
+    --card: 230 30% 5%;
+    --card-foreground: 230 45% 94%;
+    --popover: 230 30% 7%;
+    --popover-foreground: 230 45% 94%;
+    --primary: 243 75% 59%;
+    --primary-foreground: 230 45% 98%;
+    --secondary: 230 25% 12%;
+    --secondary-foreground: 230 45% 94%;
+    --muted: 230 20% 15%;
+    --muted-foreground: 230 20% 55%;
+    --accent: 243 75% 59%;
+    --accent-foreground: 230 45% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 230 25% 16%;
+    --input: 230 25% 16%;
+    --ring: 243 75% 59%;
+    --radius: 0.5rem;
+    --sidebar-background: 230 30% 5%;
+    --sidebar-foreground: 230 45% 94%;
+    --sidebar-primary: 243 75% 59%;
+    --sidebar-primary-foreground: 230 45% 98%;
+    --sidebar-accent: 230 25% 12%;
+    --sidebar-accent-foreground: 230 45% 94%;
+    --sidebar-border: 230 25% 16%;
+    --sidebar-ring: 243 75% 59%;
+
+    /* TaxMind semantic colors */
+    --bg-base: #060810;
+    --bg-surface: #0A0D18;
+    --bg-elevated: #0F1422;
+    --bg-overlay: #141929;
+    --bg-card: #0C1020;
+    --border-color: #1A2038;
+    --border-mid: #222C4A;
+    --border-bright: #2C3A60;
+    --brand: #4F46E5;
+    --brand-mid: #6366F1;
+    --brand-light: #312E81;
+    --brand-dim: #1E1B4B;
+    --brand-text: #A5B4FC;
+    --brand-glow: rgba(79, 70, 229, 0.18);
+    --tax-savings: #10B981;
+    --tax-liability: #EF4444;
+    --tax-neutral: #6B7280;
+    --tax-opportunity: #F59E0B;
+    --tax-action: #3B82F6;
+    --tax-warning: #DC2626;
+    --text-primary: #E4E8F8;
+    --text-secondary: #7885B8;
+    --text-muted: #384060;
+    --text-number: #F0F4FF;
+    --text-code: #C7D2FE;
+    --text-cite: #818CF8;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-tm-bg-base text-tm-text-primary font-ui antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-surface);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--border-mid);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--border-bright);
+  }
+}
+
+@layer components {
+  .font-data {
+    font-family: "IBM Plex Mono", "Courier New", monospace;
+  }
+  .font-memo {
+    font-family: "Source Serif 4", Georgia, serif;
+  }
+
+  .card-tax {
+    @apply bg-tm-bg-card border border-tm-border rounded-lg;
+  }
+
+  .card-tax-hover {
+    @apply bg-tm-bg-card border border-tm-border rounded-lg transition-all duration-200
+           hover:border-tm-border-bright hover:shadow-glow;
+  }
+
+  .btn-primary-tax {
+    @apply bg-tm-brand text-white font-medium px-4 py-2 rounded-md
+           transition-all duration-200 hover:bg-tm-brand-mid
+           hover:shadow-glow active:scale-[0.98];
+  }
+
+  .btn-secondary-tax {
+    @apply bg-tm-bg-elevated border border-tm-border-mid text-tm-text-primary
+           font-medium px-4 py-2 rounded-md transition-all duration-200
+           hover:border-tm-border-bright hover:bg-tm-bg-overlay;
+  }
+
+  .irc-chip {
+    @apply inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs font-data
+           bg-tm-ai-dim text-tm-text-cite border border-tm-brand/30
+           cursor-pointer transition-all hover:border-tm-brand/60 hover:bg-tm-brand-dim;
+  }
+
+  .kpi-card {
+    @apply bg-tm-bg-card border border-tm-border rounded-lg p-5
+           flex flex-col gap-2;
+  }
+
+  .kpi-value {
+    @apply text-2xl font-data font-semibold text-tm-text-number;
+  }
+
+  .kpi-label {
+    @apply text-xs font-medium text-tm-text-secondary uppercase tracking-wider;
+  }
+
+  .status-badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .input-tax {
+    @apply bg-tm-bg-elevated border border-tm-border rounded-md px-3 py-2
+           text-sm text-tm-text-primary placeholder:text-tm-text-muted
+           focus:outline-none focus:ring-2 focus:ring-tm-brand/40 focus:border-tm-brand
+           transition-all;
+  }
+
+  .section-title {
+    @apply text-lg font-semibold text-tm-text-primary tracking-tight;
+  }
+
+  .form-label {
+    @apply text-sm font-medium text-tm-text-secondary mb-1.5 block;
+  }
+}
